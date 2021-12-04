@@ -14,8 +14,9 @@ async function runDB(){
         const collection = client.db("personal-portfolio").collection("projects");
         // perform actions on the collection object
         // Project view get Request 
-        app.get('/project', (req, res) => {
-          const result = collection.find({}).toArray();
+        app.get('/project', async(req, res) => {
+          const result =await collection.find({}).toArray();
+          console.log(result)
           res.send(result);
         });
   
