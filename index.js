@@ -1,9 +1,10 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
+const cors = require('cors')
 require('dotenv').config()
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+app.use(cors())
 // MongoDB Connection 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.rtuf5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
