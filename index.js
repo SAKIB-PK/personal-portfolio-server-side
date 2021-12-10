@@ -1,5 +1,6 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
+const ObjectId = require('mongodb').ObjectId; 
 const cors = require('cors')
 require('dotenv').config()
 const app = express();
@@ -14,10 +15,16 @@ async function runDB(){
         console.log('Connected to MongoDB');
         const collection = client.db("personal-portfolio").collection("projects");
         // perform actions on the collection object
+        // Project view id get Request 
+        app.get('/project/:id', async(req, res) => {
+          const id = req.params.id
+          const query = {_id:ObjectId(id)}
+          const result =await collection.findOne(query);
+          res.send(result);
+        });
         // Project view get Request 
         app.get('/project', async(req, res) => {
           const result =await collection.find({}).toArray();
-          console.log(result)
           res.send(result);
         });
   
